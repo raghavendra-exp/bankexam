@@ -1,0 +1,649 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Bank Exam Study Prompt Generator | SBI · IBPS · RRB Clerk</title>
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+:root{
+  --navy:#0D2137;--blue:#1565C0;--teal:#00695C;--amber:#E65100;
+  --green:#1B5E20;--purple:#4A148C;--slate:#37474F;--dim:#546E7A;
+  --bg:#F0F4F8;--surface:#FFFFFF;--surface2:#F5F7FA;
+  --border:#DDEAF5;--border2:#B8D0E8;
+  --text:#1A1A2E;--muted:#546E7A;
+  --accent:#1565C0;--accent-bg:#E3F2FD;
+  --radius:10px;--radius-lg:16px;
+  --shadow:0 2px 12px rgba(13,33,55,0.08);
+  --shadow-lg:0 8px 32px rgba(13,33,55,0.12);
+}
+html{scroll-behavior:smooth}
+body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI','Inter',Roboto,sans-serif;
+  font-size:15px;line-height:1.6;color:var(--text);background:var(--bg);min-height:100vh}
+.site-header{background:var(--navy);position:sticky;top:0;z-index:100;box-shadow:0 2px 16px rgba(0,0,0,.2)}
+.header-inner{max-width:980px;margin:0 auto;padding:14px 24px;display:flex;align-items:center;justify-content:space-between;gap:16px}
+.logo{display:flex;align-items:center;gap:12px}
+.logo-icon{width:40px;height:40px;border-radius:10px;background:var(--blue);display:flex;align-items:center;justify-content:center;font-size:20px;flex-shrink:0}
+.logo h1{font-size:16px;font-weight:700;color:#fff}
+.logo p{font-size:11px;color:rgba(255,255,255,.6);margin-top:1px}
+.hbadges{display:flex;gap:8px}
+.hbadge{font-size:11px;font-weight:600;padding:4px 10px;border-radius:20px;border:1px solid rgba(255,255,255,.25);color:rgba(255,255,255,.85)}
+.container{max-width:980px;margin:0 auto;padding:28px 24px 60px}
+.intro{background:var(--surface);border-radius:var(--radius-lg);border:1px solid var(--border);padding:28px 32px;margin-bottom:20px;box-shadow:var(--shadow)}
+.intro h2{font-size:21px;font-weight:700;color:var(--navy);margin-bottom:8px}
+.intro p{color:var(--muted);font-size:14px;line-height:1.7}
+.steps{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:10px;margin-top:18px}
+.step{background:var(--surface2);border-radius:var(--radius);padding:14px 16px;border:1px solid var(--border)}
+.stepn{width:24px;height:24px;border-radius:50%;background:var(--blue);color:#fff;font-size:11px;font-weight:700;display:flex;align-items:center;justify-content:center;margin-bottom:8px}
+.step h4{font-size:13px;font-weight:600;color:var(--navy);margin-bottom:3px}
+.step p{font-size:12px;color:var(--muted);line-height:1.5}
+.gen-card{background:var(--surface);border-radius:var(--radius-lg);border:1px solid var(--border);box-shadow:var(--shadow);overflow:hidden;margin-bottom:24px}
+.csec{padding:22px 28px;border-bottom:1px solid var(--border)}
+.csec:last-child{border-bottom:none}
+.slabel{font-size:11px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:var(--muted);margin-bottom:14px;display:flex;align-items:center;gap:8px}
+.slabel::after{content:'';flex:1;height:1px;background:var(--border)}
+.subjpills{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:0}
+.sp{padding:8px 16px;border-radius:24px;font-size:13px;font-weight:500;border:1.5px solid var(--border2);cursor:pointer;background:var(--surface);color:var(--muted);transition:all .15s;user-select:none;font-family:inherit}
+.sp:hover{border-color:var(--blue);color:var(--blue)}
+.sp.active{color:#fff;border-color:currentColor}
+.sp.quant.active{background:#1565C0;border-color:#1565C0}
+.sp.reasoning.active{background:#6A1B9A;border-color:#6A1B9A}
+.sp.english.active{background:#00695C;border-color:#00695C}
+.sp.gkfa.active{background:#E65100;border-color:#E65100}
+.sp.computer.active{background:#37474F;border-color:#37474F}
+.tgrid{display:grid;grid-template-columns:repeat(auto-fill,minmax(196px,1fr));gap:8px;max-height:300px;overflow-y:auto;padding:2px}
+.tgrid::-webkit-scrollbar{width:5px}
+.tgrid::-webkit-scrollbar-track{background:var(--surface2);border-radius:3px}
+.tgrid::-webkit-scrollbar-thumb{background:var(--border2);border-radius:3px}
+.tbtn{padding:9px 12px;border-radius:var(--radius);font-size:13px;border:1.5px solid var(--border);cursor:pointer;background:var(--surface2);color:var(--muted);text-align:left;transition:all .12s;line-height:1.4;font-family:inherit;width:100%}
+.tbtn:hover{border-color:var(--border2);color:var(--text);background:var(--surface)}
+.tbtn.sel{background:var(--accent-bg);color:var(--blue);border-color:var(--blue);font-weight:600}
+.tempty{grid-column:1/-1;text-align:center;padding:32px;color:var(--muted);font-size:14px}
+.sgrid{display:grid;grid-template-columns:1fr 1fr 1fr;gap:14px}
+.field{display:flex;flex-direction:column;gap:6px}
+.field label{font-size:12px;font-weight:600;color:var(--slate);text-transform:uppercase;letter-spacing:.06em}
+select{appearance:none;-webkit-appearance:none;padding:10px 36px 10px 12px;font-size:14px;border:1.5px solid var(--border2);border-radius:var(--radius);background:var(--surface) url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8' viewBox='0 0 12 8'%3E%3Cpath d='M1 1l5 5 5-5' stroke='%23546E7A' stroke-width='1.5' fill='none' stroke-linecap='round'/%3E%3C/svg%3E") no-repeat right 12px center;color:var(--text);cursor:pointer;width:100%;transition:border-color .15s;font-family:inherit}
+select:hover{border-color:var(--blue)}
+select:focus{outline:none;border-color:var(--blue);box-shadow:0 0 0 3px rgba(21,101,192,.12)}
+.togctrls{display:flex;gap:8px;margin-bottom:12px;flex-wrap:wrap}
+.tc{font-size:12px;padding:5px 12px;border-radius:20px;border:1px solid var(--border2);background:var(--surface);color:var(--muted);cursor:pointer;font-family:inherit;transition:all .12s}
+.tc:hover{color:var(--blue);border-color:var(--blue)}
+.togrid{display:grid;grid-template-columns:repeat(auto-fill,minmax(168px,1fr));gap:8px}
+.togi{display:flex;align-items:center;gap:9px;padding:10px 12px;border-radius:var(--radius);border:1.5px solid var(--border);background:var(--surface2);cursor:pointer;transition:all .12s;user-select:none}
+.togi:hover{border-color:var(--border2)}
+.togi.on{background:var(--accent-bg);border-color:var(--blue)}
+.togsw{width:32px;height:18px;border-radius:9px;background:var(--border2);position:relative;flex-shrink:0;transition:background .15s}
+.togsw::after{content:'';position:absolute;width:12px;height:12px;border-radius:50%;background:#fff;top:3px;left:3px;transition:transform .15s;box-shadow:0 1px 3px rgba(0,0,0,.2)}
+.togi.on .togsw{background:var(--blue)}
+.togi.on .togsw::after{transform:translateX(14px)}
+.togl{font-size:12px;font-weight:500;color:var(--muted);line-height:1.3;flex:1}
+.togi.on .togl{color:var(--blue)}
+.togico{font-size:14px;flex-shrink:0}
+.gensec{padding:22px 28px}
+.genbtn{width:100%;padding:14px 24px;font-size:16px;font-weight:700;border:none;border-radius:var(--radius);cursor:pointer;background:linear-gradient(135deg,var(--navy) 0%,var(--blue) 100%);color:#fff;letter-spacing:.2px;transition:opacity .15s,transform .1s;font-family:inherit;box-shadow:0 4px 16px rgba(21,101,192,.35)}
+.genbtn:hover{opacity:.91}
+.genbtn:active{transform:scale(.99)}
+.genbtn:disabled{opacity:.45;cursor:not-allowed}
+@keyframes pulse{0%{box-shadow:0 4px 16px rgba(21,101,192,.35)}50%{box-shadow:0 4px 28px rgba(21,101,192,.6)}100%{box-shadow:0 4px 16px rgba(21,101,192,.35)}}
+.genbtn.ready{animation:pulse 2.2s infinite}
+.outcard{background:var(--surface);border-radius:var(--radius-lg);border:2px solid var(--blue);box-shadow:var(--shadow-lg);overflow:hidden;display:none;margin-bottom:24px}
+.outh{background:var(--navy);padding:18px 24px;display:flex;align-items:center;justify-content:space-between;gap:12px;flex-wrap:wrap}
+.outm h3{font-size:15px;font-weight:700;color:#fff}
+.outm p{font-size:12px;color:rgba(255,255,255,.6);margin-top:2px}
+.outacts{display:flex;gap:8px;flex-wrap:wrap}
+.abtn{padding:8px 16px;border-radius:var(--radius);font-size:13px;font-weight:600;cursor:pointer;font-family:inherit;transition:all .15s;border:none}
+.bcopy{background:rgba(255,255,255,.15);color:#fff;border:1px solid rgba(255,255,255,.3)}
+.bcopy:hover{background:rgba(255,255,255,.28)}
+.bdl{background:var(--blue);color:#fff}
+.bdl:hover{background:#1976D2}
+.outstats{display:flex;gap:0;border-bottom:1px solid var(--border);background:var(--surface2);flex-wrap:wrap}
+.statpill{padding:9px 16px;font-size:12px;font-weight:600;color:var(--muted);border-right:1px solid var(--border)}
+.statpill span{color:var(--blue)}
+.parea{padding:28px;font-family:'Courier New',Courier,monospace;font-size:13px;line-height:1.85;color:var(--text);white-space:pre-wrap;word-wrap:break-word;max-height:600px;overflow-y:auto;background:#FAFBFD}
+.parea::-webkit-scrollbar{width:6px}
+.parea::-webkit-scrollbar-track{background:var(--surface2)}
+.parea::-webkit-scrollbar-thumb{background:var(--border2);border-radius:3px}
+.emptystate{text-align:center;padding:60px 24px;background:var(--surface);border-radius:var(--radius-lg);border:1px solid var(--border)}
+.emptystate h3{font-size:18px;font-weight:600;color:var(--navy);margin-bottom:8px}
+.emptystate p{color:var(--muted);font-size:14px;max-width:400px;margin:0 auto}
+footer{background:var(--navy);color:rgba(255,255,255,.5);text-align:center;padding:20px;font-size:12px;margin-top:60px}
+footer strong{color:rgba(255,255,255,.85)}
+.toast{position:fixed;bottom:24px;right:24px;background:var(--navy);color:#fff;padding:12px 20px;border-radius:var(--radius);font-size:14px;font-weight:500;box-shadow:var(--shadow-lg);transform:translateY(80px);opacity:0;transition:all .3s;z-index:9999}
+.toast.show{transform:translateY(0);opacity:1}
+@media(max-width:700px){.sgrid{grid-template-columns:1fr 1fr}.hbadges{display:none}}
+@media(max-width:480px){.sgrid{grid-template-columns:1fr}}
+</style>
+</head>
+<body>
+
+<header class="site-header">
+  <div class="header-inner">
+    <div class="logo">
+      <div class="logo-icon">📚</div>
+      <div>
+        <h1>Bank Exam Study Prompt Generator</h1>
+        <p>Deep study prompts for every topic · SBI · IBPS · RRB Clerk 2025–26</p>
+      </div>
+    </div>
+    <div class="hbadges">
+      <span class="hbadge">SBI Clerk</span>
+      <span class="hbadge">IBPS Clerk</span>
+      <span class="hbadge">RRB Office Asst.</span>
+    </div>
+  </div>
+</header>
+
+<main class="container">
+
+  <div class="intro">
+    <h2>Generate your perfect AI study prompt in seconds</h2>
+    <p>Select a subject and topic from the complete SBI / IBPS / RRB Clerk syllabus. Choose your settings and sections. Click generate — then paste the prompt into Claude, ChatGPT, or any AI to get a complete, self-sufficient study module.</p>
+    <div class="steps">
+      <div class="step"><div class="stepn">1</div><h4>Pick subject</h4><p>5 subjects from the master guide</p></div>
+      <div class="step"><div class="stepn">2</div><h4>Select topic</h4><p>Every syllabus topic listed</p></div>
+      <div class="step"><div class="stepn">3</div><h4>Configure</h4><p>Exam, stage, depth, sections</p></div>
+      <div class="step"><div class="stepn">4</div><h4>Generate</h4><p>Copy &amp; paste into any AI chatbot</p></div>
+    </div>
+  </div>
+
+  <div class="gen-card">
+
+    <!-- SUBJECT -->
+    <div class="csec">
+      <div class="slabel">Step 1 &mdash; Choose subject</div>
+      <div class="subjpills">
+        <button class="sp quant"     onclick="selSubj(this,'quant')">📐 Quantitative Aptitude</button>
+        <button class="sp reasoning" onclick="selSubj(this,'reasoning')">🧩 Reasoning Ability</button>
+        <button class="sp english"   onclick="selSubj(this,'english')">📖 English Language</button>
+        <button class="sp gkfa"      onclick="selSubj(this,'gkfa')">🏦 General &amp; Financial Awareness</button>
+        <button class="sp computer"  onclick="selSubj(this,'computer')">💻 Computer Aptitude</button>
+      </div>
+    </div>
+
+    <!-- TOPIC -->
+    <div class="csec">
+      <div class="slabel">Step 2 &mdash; Choose topic</div>
+      <div class="tgrid" id="tgrid">
+        <div class="tempty">👆 Select a subject above to see all topics</div>
+      </div>
+    </div>
+
+    <!-- SETTINGS -->
+    <div class="csec">
+      <div class="slabel">Step 3 &mdash; Configure settings</div>
+      <div class="sgrid">
+        <div class="field">
+          <label>Exam target</label>
+          <select id="sel-exam">
+            <option value="all">All three — SBI + IBPS + RRB</option>
+            <option value="sbi">SBI Clerk only</option>
+            <option value="ibps">IBPS Clerk only</option>
+            <option value="rrb">RRB Office Asst. only</option>
+          </select>
+        </div>
+        <div class="field">
+          <label>Exam stage</label>
+          <select id="sel-stage">
+            <option value="both">Prelims + Mains</option>
+            <option value="prelims">Prelims only</option>
+            <option value="mains">Mains only</option>
+          </select>
+        </div>
+        <div class="field">
+          <label>Depth level</label>
+          <select id="sel-depth">
+            <option value="complete">Complete — beginner to advanced</option>
+            <option value="quick">Quick revision — key points only</option>
+            <option value="advanced">Advanced — assume basics known</option>
+          </select>
+        </div>
+      </div>
+    </div>
+
+    <!-- SECTIONS -->
+    <div class="csec">
+      <div class="slabel">Step 4 &mdash; Select sections to include</div>
+      <div class="togctrls">
+        <button class="tc" onclick="setAll(true)">Select all</button>
+        <button class="tc" onclick="setAll(false)">Clear all</button>
+        <button class="tc" onclick="setEssential()">Essential only</button>
+        <button class="tc" onclick="setPractice()">Practice focused</button>
+      </div>
+      <div class="togrid" id="togrid"></div>
+    </div>
+
+    <!-- GENERATE BUTTON -->
+    <div class="gensec">
+      <button class="genbtn" id="genbtn" onclick="generate()" disabled>
+        Select a subject &amp; topic to generate prompt
+      </button>
+    </div>
+
+  </div>
+
+  <!-- OUTPUT -->
+  <div class="outcard" id="outcard">
+    <div class="outh">
+      <div class="outm">
+        <h3 id="outtitle">Generated prompt</h3>
+        <p id="outsubtitle">Ready to paste into any AI chatbot</p>
+      </div>
+      <div class="outacts">
+        <button class="abtn bcopy" onclick="copyP()">📋 Copy prompt</button>
+        <button class="abtn bdl"   onclick="dlP()">⬇ Download .txt</button>
+      </div>
+    </div>
+    <div class="outstats" id="outstats"></div>
+    <div class="parea" id="parea"></div>
+  </div>
+
+  <!-- EMPTY STATE -->
+  <div class="emptystate" id="emptystate">
+    <div style="font-size:52px;margin-bottom:16px">🎯</div>
+    <h3>Your prompt will appear here</h3>
+    <p>Select a subject and topic, configure your settings, then click the generate button.</p>
+  </div>
+
+</main>
+
+<div class="toast" id="toast"></div>
+
+<footer>
+  <strong>Bank Exam Study Prompt Generator</strong> &nbsp;·&nbsp;
+  SBI Clerk &nbsp;·&nbsp; IBPS Clerk &nbsp;·&nbsp; RRB Office Assistant &nbsp;·&nbsp;
+  Edition 2025–2026 &nbsp;·&nbsp;
+  Based on the Complete Master Tutor &amp; Researcher Guide
+</footer>
+
+<script>
+// ── DATA ──────────────────────────────────────────────────────────────
+const TOPICS={
+  quant:[
+    ["simp","Simplification & Approximation"],
+    ["series","Number Series (all patterns)"],
+    ["quad","Quadratic Equations"],
+    ["di_basic","DI — Table & Bar Graph"],
+    ["di_pie","DI — Pie Chart & Line Graph"],
+    ["di_mixed","DI — Mixed & Caselet DI"],
+    ["di_missing","DI — Missing & Quantity Comparison"],
+    ["pct","Percentage"],
+    ["ratio","Ratio & Proportion"],
+    ["si","Simple Interest"],
+    ["ci","Compound Interest"],
+    ["pl","Profit, Loss & Discount"],
+    ["tsd","Time, Speed & Distance"],
+    ["trains","Problems on Trains"],
+    ["boats","Boats & Streams"],
+    ["tw","Time & Work"],
+    ["pipe","Pipes & Cisterns"],
+    ["avg","Average"],
+    ["mix","Mixtures & Alligations"],
+    ["partner","Partnership"],
+    ["ages","Problems on Ages"],
+    ["mensur","Mensuration (2D & 3D)"],
+    ["num","Number System, HCF & LCM"],
+    ["prob","Probability"],
+    ["pc","Permutation & Combination"],
+  ],
+  reasoning:[
+    ["puz_lin","Puzzles — Linear Arrangement"],
+    ["puz_circ","Puzzles — Circular / Square"],
+    ["puz_floor","Puzzles — Floor / Building"],
+    ["puz_box","Puzzles — Box / Stack"],
+    ["puz_month","Puzzles — Month / Year Scheduling"],
+    ["puz_multi","Puzzles — Multi-variable (complex)"],
+    ["seating","Seating Arrangement (all types)"],
+    ["syllogism","Syllogism — New Pattern (Possibility)"],
+    ["inequal","Inequalities — Direct & Coded"],
+    ["coding","Coding-Decoding — New Row Pattern"],
+    ["blood","Blood Relations"],
+    ["direction","Direction & Distance"],
+    ["alpha","Alphanumeric Series"],
+    ["order","Order & Ranking"],
+    ["io","Input-Output Machine"],
+    ["ds_r","Data Sufficiency (Reasoning)"],
+    ["critical","Critical Reasoning"],
+  ],
+  english:[
+    ["rc","Reading Comprehension"],
+    ["cloze","Cloze Test"],
+    ["error","Error Detection / Spotting"],
+    ["jumble","Para Jumbles"],
+    ["fib","Fill in the Blanks"],
+    ["improve","Sentence Improvement"],
+    ["vocab","Vocabulary — Word Usage in Context"],
+    ["odd","Odd One Out / Para Completion"],
+    ["column","Column-Based Matching"],
+    ["connector","Sentence Connectors"],
+  ],
+  gkfa:[
+    ["rbi","RBI — Monetary Policy & Rates"],
+    ["bank_types","Types of Banks"],
+    ["acts","Banking Acts & Regulations"],
+    ["npa","NPA, Basel Norms & Stress Terms"],
+    ["committees","Banking Committees"],
+    ["payment","Payment Systems (UPI/NEFT/RTGS)"],
+    ["schemes","Government Financial Schemes"],
+    ["regulators","Financial Regulators (SEBI, IRDAI…)"],
+    ["markets","Financial Markets & Investment Terms"],
+    ["intl","International Organisations"],
+    ["ca","Current Affairs — Banking & Economy"],
+    ["static_gk","Static GK — India Geography & Polity"],
+    ["acronyms","Banking Acronyms & Full Forms"],
+  ],
+  computer:[
+    ["generat","Computer Generations & History"],
+    ["hardware","Hardware — Input, Output & Storage"],
+    ["software","Software — System & Application"],
+    ["memory","Memory — RAM, ROM, Cache"],
+    ["os","Operating Systems"],
+    ["msoffice","MS Office Shortcuts (Word/Excel/PPT)"],
+    ["internet","Internet & Browser Concepts"],
+    ["network","Networking — LAN, WAN, OSI Model"],
+    ["cyber","Cybersecurity — Threats & Defences"],
+    ["dbms","Database (DBMS) Basics"],
+    ["numsys","Number Systems (Binary, Hex, Decimal)"],
+  ]
+};
+
+const SLABELS={quant:"Quantitative Aptitude",reasoning:"Reasoning Ability",english:"English Language",gkfa:"General & Financial Awareness",computer:"Computer Aptitude"};
+const ELABELS={all:"SBI Clerk, IBPS Clerk & RRB Office Assistant",sbi:"SBI Clerk",ibps:"IBPS Clerk",rrb:"RRB Office Assistant"};
+const STLABELS={both:"Prelims + Mains",prelims:"Prelims",mains:"Mains"};
+const DLABELS={complete:"from absolute basics to advanced exam-level",quick:"quick revision covering only the most critical points",advanced:"advanced level, assuming fundamentals are already known"};
+
+const SECTIONS=[
+  {key:"concept",  icon:"💡",label:"Core concept explanation"},
+  {key:"visual",   icon:"📊",label:"Pictorial / visual representation"},
+  {key:"memory",   icon:"🧠",label:"Memory tricks & mnemonics"},
+  {key:"formulas", icon:"📐",label:"Complete formula / rule sheet"},
+  {key:"shortcuts",icon:"⚡",label:"Shortcuts & speed techniques"},
+  {key:"bullets",  icon:"📝",label:"Bullet-form revision notes"},
+  {key:"examples", icon:"✅",label:"Solved examples (step-by-step)"},
+  {key:"practice", icon:"🏋",label:"Practice set (10 questions)"},
+  {key:"mcq",      icon:"🎯",label:"MCQ bank (20 questions)"},
+  {key:"repeated", icon:"🔁",label:"Most repeated questions (2019–25)"},
+  {key:"probable", icon:"📈",label:"Most probable (latest trend 2024–26)"},
+  {key:"mistakes", icon:"⚠️",label:"Common mistakes to avoid"},
+  {key:"examtip",  icon:"🏆",label:"Exam-day strategy & tips"},
+];
+
+const ESSENTIAL=["concept","formulas","shortcuts","bullets","mcq","examtip"];
+const PRACFOC=["examples","practice","mcq","repeated","probable","mistakes"];
+
+// ── STATE ─────────────────────────────────────────────────────────────
+let selSubject=null,selKey=null,selLabel=null;
+
+// ── INIT ──────────────────────────────────────────────────────────────
+(function init(){
+  const g=document.getElementById('togrid');
+  g.innerHTML=SECTIONS.map(s=>`
+    <div class="togi on" data-key="${s.key}" onclick="this.classList.toggle('on')">
+      <div class="togsw"></div>
+      <span class="togico">${s.icon}</span>
+      <span class="togl">${s.label}</span>
+    </div>`).join('');
+})();
+
+// ── SUBJECT ───────────────────────────────────────────────────────────
+function selSubj(el,subj){
+  document.querySelectorAll('.sp').forEach(p=>p.classList.remove('active'));
+  el.classList.add('active');
+  selSubject=subj; selKey=null; selLabel=null;
+  renderTopics(); updateBtn();
+}
+
+function renderTopics(){
+  const g=document.getElementById('tgrid');
+  if(!selSubject){g.innerHTML='<div class="tempty">👆 Select a subject above to see all topics</div>';return;}
+  g.innerHTML=TOPICS[selSubject].map(([k,n])=>`
+    <button class="tbtn" data-key="${k}" onclick="selTopic(this,'${k}','${n.replace(/'/g,"&#39;")}')">
+      ${n}
+    </button>`).join('');
+}
+
+function selTopic(el,k,n){
+  document.querySelectorAll('.tbtn').forEach(b=>b.classList.remove('sel'));
+  el.classList.add('sel');
+  selKey=k; selLabel=n; updateBtn();
+}
+
+function updateBtn(){
+  const b=document.getElementById('genbtn');
+  if(selSubject&&selKey){
+    b.disabled=false;
+    b.textContent='Generate prompt for "'+selLabel+'" \u2192';
+    b.classList.add('ready');
+  } else if(selSubject){
+    b.disabled=true; b.textContent='Select a topic above to generate prompt'; b.classList.remove('ready');
+  } else {
+    b.disabled=true; b.textContent='Select a subject & topic to generate prompt'; b.classList.remove('ready');
+  }
+}
+
+// ── TOGGLE CONTROLS ────────────────────────────────────────────────────
+function setAll(on){
+  document.querySelectorAll('.togi').forEach(t=>{ if(on) t.classList.add('on'); else t.classList.remove('on'); });
+}
+function setEssential(){
+  document.querySelectorAll('.togi').forEach(t=>{
+    if(ESSENTIAL.includes(t.dataset.key)) t.classList.add('on'); else t.classList.remove('on');
+  });
+}
+function setPractice(){
+  document.querySelectorAll('.togi').forEach(t=>{
+    if(PRACFOC.includes(t.dataset.key)) t.classList.add('on'); else t.classList.remove('on');
+  });
+}
+
+// ── BUILD PROMPT ────────────────────────────────────────────────────────
+function buildPrompt(){
+  const T={};
+  document.querySelectorAll('.togi').forEach(t=>{ T[t.dataset.key]=t.classList.contains('on'); });
+  const active=SECTIONS.filter(s=>T[s.key]);
+  if(!active.length){showToast('Enable at least one section');return null;}
+
+  const ev=document.getElementById('sel-exam').value;
+  const sv=document.getElementById('sel-stage').value;
+  const dv=document.getElementById('sel-depth').value;
+  const EL=ELABELS[ev], SL=STLABELS[sv], DL=DLABELS[dv];
+  const SJL=SLABELS[selSubject], TOP=selLabel;
+  let n=1, p='';
+
+  p+='You are a top tutor and researcher specialising in bank clerk exam preparation.\n';
+  p+='Prepare a complete, in-depth study module on the topic specified below.\n\n';
+  p+='══════════════════════════════════════════════\n';
+  p+='  STUDY MODULE REQUEST\n';
+  p+='══════════════════════════════════════════════\n\n';
+  p+='  SUBJECT     :  '+SJL+'\n';
+  p+='  TOPIC       :  '+TOP+'\n';
+  p+='  EXAM TARGET :  '+EL+'\n';
+  p+='  EXAM STAGE  :  '+SL+'\n';
+  p+='  DEPTH       :  Teach this '+DL+'\n\n';
+  p+='══════════════════════════════════════════════\n';
+  p+='  SECTIONS TO INCLUDE (in this order)\n';
+  p+='══════════════════════════════════════════════\n\n';
+
+  if(T.concept){
+    p+=n++ +'. CORE CONCEPT EXPLANATION\n';
+    p+='   ▸ Explain "'+TOP+'" clearly from the ground up\n';
+    p+='   ▸ Use simple language and relatable real-world analogies\n';
+    p+='   ▸ Cover every sub-type and variant tested in '+EL+'\n';
+    p+='   ▸ Explain WHY the concept works, not just HOW to apply it\n';
+    p+='   ▸ Include how this topic appears in '+SL+' with approximate question count\n\n';
+  }
+  if(T.visual){
+    p+=n++ +'. PICTORIAL / VISUAL REPRESENTATION\n';
+    p+='   ▸ Create a text-based diagram, table, tree, or ASCII art illustration\n';
+    p+='   ▸ Draw flowcharts, Venn diagrams, or step-by-step visual walkthroughs\n';
+    p+='   ▸ Use symbols (→, ⟹, ◆, ○, □), arrows and indentation to show structure\n';
+    p+='   ▸ For every formula: show it in a visual box with all variables labelled\n';
+    p+='   ▸ For processes: show each step as a numbered visual pipeline\n\n';
+  }
+  if(T.memory){
+    p+=n++ +'. MEMORY TRICKS & MNEMONICS\n';
+    p+='   ▸ Provide one powerful mnemonic per major formula or rule\n';
+    p+='   ▸ Use acronyms, rhymes, stories, vivid imagery or associations\n';
+    p+='   ▸ Include pattern-recognition tricks specific to "'+TOP+'"\n';
+    p+='   ▸ Create a "sticky hook" — one unforgettable idea that makes the concept permanent\n\n';
+  }
+  if(T.formulas){
+    p+=n++ +'. COMPLETE FORMULA / RULE SHEET\n';
+    p+='   ▸ List ALL formulas, rules, conditions and special cases\n';
+    p+='   ▸ Format each entry: Formula | Variable definitions | When to use\n';
+    p+='   ▸ Mark the single most-tested formula with  [★ MOST TESTED]\n';
+    p+='   ▸ Include derivation or intuition for the 2–3 most important formulas\n';
+    p+='   ▸ Provide a worked numerical mini-example immediately after each formula\n\n';
+  }
+  if(T.shortcuts){
+    p+=n++ +'. SHORTCUTS & FAST-SOLVING TECHNIQUES\n';
+    p+='   ▸ List every known shortcut for "'+TOP+'" specific to bank exams\n';
+    p+='   ▸ For each: show LONG METHOD vs SHORTCUT side-by-side\n';
+    p+='   ▸ State approximate time saved (in seconds) per shortcut\n';
+    p+='   ▸ Include Vedic maths tricks, approximation, elimination and pattern tricks\n';
+    p+='   ▸ End with a "speed drill" — 3 rapid-fire questions that test the fastest shortcut\n\n';
+  }
+  if(T.bullets){
+    p+=n++ +'. COMPLETE BULLET-FORM REVISION NOTES\n';
+    p+='   ▸ Summarise the ENTIRE topic in crisp, exam-ready bullet points\n';
+    p+='   ▸ Organise under clear sub-headings for each concept and sub-type\n';
+    p+='   ▸ Each bullet = one standalone, self-contained exam fact or rule\n';
+    p+='   ▸ Include common traps, exceptions, must-remember numbers and edge cases\n';
+    p+='   ▸ Format for last-day revision — entire topic scannable in under 5 minutes\n\n';
+  }
+  if(T.examples){
+    p+=n++ +'. SOLVED EXAMPLES — STEP BY STEP\n';
+    p+='   ▸ 5 fully solved examples: 2 Easy + 2 Medium + 1 Hard\n';
+    p+='   ▸ For each: identify type → write approach → solve step-by-step\n';
+    p+='   ▸ Show BOTH the long method AND the shortcut method side-by-side\n';
+    p+='   ▸ Narrate the thinking process — explain each decision as you make it\n';
+    p+='   ▸ After each example state "Key insight: ..." in one sentence\n\n';
+  }
+  if(T.practice){
+    p+=n++ +'. PRACTICE SET — 10 QUESTIONS\n';
+    p+='   ▸ 10 questions: 4 Easy + 4 Medium + 2 Hard\n';
+    p+='   ▸ Match the style, format and difficulty of actual '+EL+' papers\n';
+    p+='   ▸ Cover all sub-types of "'+TOP+'" across the 10 questions\n';
+    p+='   ▸ Provide answer key with one-line solution hints after all 10 questions\n';
+    p+='   ▸ Then provide FULL detailed solutions for every question\n\n';
+  }
+  if(T.mcq){
+    p+=n++ +'. MCQ BANK — 20 QUESTIONS WITH ANSWER KEY\n';
+    p+='   ▸ 20 MCQs in standard exam format: question + options (A) (B) (C) (D)\n';
+    p+='   ▸ Cover all sub-types — no single sub-type should dominate\n';
+    p+='   ▸ Include deliberately tricky options designed to catch common errors\n';
+    p+='   ▸ Mark the correct answer and provide a 1-line explanation for each\n';
+    p+='   ▸ End with a count of Easy / Medium / Hard questions\n\n';
+  }
+  if(T.repeated){
+    p+=n++ +'. MOST REPEATED QUESTIONS — 2019 TO 2025\n';
+    p+='   ▸ Analyse "'+TOP+'" across actual SBI / IBPS / RRB Clerk papers 2019–2025\n';
+    p+='   ▸ List the 10 most frequently repeated question patterns\n';
+    p+='   ▸ For each: Pattern name | Representative question | Step-by-step solution\n';
+    p+='   ▸ State which exam(s) repeated it and approximate frequency\n';
+    p+='   ▸ Mark patterns appearing in 3+ papers with  [★ HIGH REPEAT]\n\n';
+  }
+  if(T.probable){
+    p+=n++ +'. MOST PROBABLE QUESTIONS — LATEST TREND 2024–2026\n';
+    p+='   ▸ Predict the 5 most likely question types for the upcoming exam cycle\n';
+    p+='   ▸ Base each prediction on: recent paper analysis + frequency shifts + new 2024 patterns\n';
+    p+='   ▸ For each: model question + complete solution + reason it is likely to appear\n';
+    p+='   ▸ Highlight any new-pattern changes observed specifically in 2024–25 papers\n';
+    p+='   ▸ Assign a "focus score" (High / Medium) to each predicted type\n\n';
+  }
+  if(T.mistakes){
+    p+=n++ +'. COMMON MISTAKES & HOW TO AVOID THEM\n';
+    p+='   ▸ List the 7 most common errors students make on "'+TOP+'"\n';
+    p+='   ▸ For each: Wrong approach → Why it fails → Correct approach\n';
+    p+='   ▸ Cover careless errors, formula confusions, misinterpretation traps, time-waste habits\n';
+    p+='   ▸ End with a "pre-submit checklist" of 5 things to verify before marking an answer\n\n';
+  }
+  if(T.examtip){
+    p+=n++ +'. EXAM-DAY STRATEGY FOR THIS TOPIC\n';
+    p+='   ▸ When to attempt "'+TOP+'" — early or late in the section? Why?\n';
+    p+='   ▸ Time allocation: ideal minutes per question; when to speed up or slow down\n';
+    p+='   ▸ Skip decision rule: exactly when to move on\n';
+    p+='   ▸ Guessing strategy: when to guess vs when to leave blank (negative marking)\n';
+    p+='   ▸ One exam-day habit that toppers use specifically for "'+TOP+'"\n\n';
+  }
+
+  p+='══════════════════════════════════════════════\n';
+  p+='  FORMAT REQUIREMENTS — MANDATORY\n';
+  p+='══════════════════════════════════════════════\n\n';
+  p+='  ✦ Use clear numbered section headings matching the list above\n';
+  p+='  ✦ Use tables for formula comparisons and MCQ options\n';
+  p+='  ✦ Use indented bullet points (▸) for all sub-points\n';
+  p+='  ✦ Language: simple and direct — suitable for a first-attempt student\n';
+  p+='  ✦ Every formula must be followed by a worked numerical example\n';
+  p+='  ✦ All MCQs and practice questions must be in standard bank exam format\n';
+  p+='  ✦ This module must be COMPLETE and SELF-SUFFICIENT\n';
+  p+='     The student should need no other resource after reading it.\n\n';
+  p+='  Active sections: '+active.map(s=>s.label).join(' · ')+'\n';
+  p+='  Generated by: Bank Exam Study Prompt Generator (SBI · IBPS · RRB Clerk 2025–26)';
+  return p;
+}
+
+// ── GENERATE ────────────────────────────────────────────────────────────
+function generate(){
+  if(!selSubject||!selKey){showToast('Please select a subject and topic first');return;}
+  const prompt=buildPrompt(); if(!prompt) return;
+
+  const T={};
+  document.querySelectorAll('.togi').forEach(t=>{ T[t.dataset.key]=t.classList.contains('on'); });
+  const activeCount=SECTIONS.filter(s=>T[s.key]).length;
+  const ev=document.getElementById('sel-exam').value;
+  const sv=document.getElementById('sel-stage').value;
+
+  document.getElementById('outtitle').textContent=selLabel+' — '+SLABELS[selSubject];
+  document.getElementById('outsubtitle').textContent=ELABELS[ev]+' · '+STLABELS[sv]+' · '+
+    document.getElementById('sel-depth').options[document.getElementById('sel-depth').selectedIndex].text;
+
+  document.getElementById('outstats').innerHTML=[
+    '<div class="statpill">Sections: <span>'+activeCount+'</span></div>',
+    '<div class="statpill">Subject: <span>'+SLABELS[selSubject]+'</span></div>',
+    '<div class="statpill">Stage: <span>'+STLABELS[sv]+'</span></div>',
+    '<div class="statpill">Est. length: <span>~'+Math.round(prompt.length/4)+' words</span></div>',
+  ].join('');
+
+  document.getElementById('parea').textContent=prompt;
+  document.getElementById('outcard').style.display='block';
+  document.getElementById('emptystate').style.display='none';
+  setTimeout(()=>document.getElementById('outcard').scrollIntoView({behavior:'smooth',block:'start'}),120);
+  showToast('Prompt generated! Copy and paste into any AI chatbot.');
+}
+
+// ── COPY / DOWNLOAD ─────────────────────────────────────────────────────
+function copyP(){
+  const txt=document.getElementById('parea').textContent;
+  if(navigator.clipboard){
+    navigator.clipboard.writeText(txt).then(()=>{
+      const b=document.querySelector('.bcopy'); b.textContent='Copied!';
+      showToast('Prompt copied to clipboard!');
+      setTimeout(()=>b.textContent='📋 Copy prompt',2500);
+    });
+  } else {
+    const ta=document.createElement('textarea');
+    ta.value=txt; ta.style.cssText='position:fixed;opacity:0';
+    document.body.appendChild(ta); ta.select();
+    document.execCommand('copy'); document.body.removeChild(ta);
+    showToast('Prompt copied!');
+  }
+}
+
+function dlP(){
+  const txt=document.getElementById('parea').textContent;
+  const fn='prompt_'+selSubject+'_'+selKey+'_'+Date.now()+'.txt';
+  const a=document.createElement('a');
+  a.href=URL.createObjectURL(new Blob([txt],{type:'text/plain'}));
+  a.download=fn; a.click(); URL.revokeObjectURL(a.href);
+  showToast('Downloaded as '+fn);
+}
+
+// ── TOAST ────────────────────────────────────────────────────────────────
+function showToast(msg){
+  const t=document.getElementById('toast');
+  t.textContent=msg; t.classList.add('show');
+  setTimeout(()=>t.classList.remove('show'),3200);
+}
+</script>
+</body>
+</html>
