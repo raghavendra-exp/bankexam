@@ -112,7 +112,34 @@ footer strong{color:rgba(255,255,255,.85)}
 .toast.show{transform:translateY(0);opacity:1}
 @media(max-width:700px){.sgrid{grid-template-columns:1fr 1fr}.hbadges{display:none}}
 @media(max-width:480px){.sgrid{grid-template-columns:1fr}}
- 
+
+
+
+ /* --- Safe, compact message styling for RelevanceAI widget --- */ 
+/* Broad selectors to catch common widget class names */ .relevanceai-widget, .relevanceai-chat, .relevanceai-bubble, .relevanceai-chat-bubble, .r-ai-widget, .relevanceai-message, .r-ai-message, [data-relevanceai-share-id] { position: fixed !important; left: 20px !important; right: auto !important; bottom: 20px !important; z-index: 2147483647 !important; overflow: visible !important; } 
+/* Constrain message HTML so headings/blocks don't overflow the chat */
+ .relevanceai-widget .message, .relevanceai-chat .message, .relevanceai-bubble .message, .r-ai-widget .message, .r-ai-message, .relevanceai-message, [data-relevanceai-share-id] .message, [data-relevanceai-share-id] .message-body { max-width: 420px !important; 
+/* adjust to taste */ 
+box-sizing: border-box !important; word-break: break-word !important; white-space: normal !important; padding: 8px 12px !important; font-size: 13px !important; line-height: 1.4 !important; } 
+/* Headings / emoji headings: smaller and wrapped */ 
+.relevanceai-widget h1, .relevanceai-widget h2, .relevanceai-widget h3, .relevanceai-chat h1, .relevanceai-chat h2, .relevanceai-chat h3, .r-ai-widget h3 { font-size: 14px !important; margin: 4px 0 !important; overflow-wrap: break-word !important; } 
+/* Paragraph spacing */
+ .relevanceai-widget p, .relevanceai-chat p, .r-ai-widget p { margin: 6px 0 !important; font-size: 13px !important; } 
+/* Make images inside messages responsive */ 
+.relevanceai-widget img, .relevanceai-chat img, .r-ai-widget img { max-width: 100% !important; height: auto !important; display: block !important; }
+ /* Links inside messages */ 
+.relevanceai-widget a, .relevanceai-chat a { color: #667eea !important; text-decoration: underline !important; word-break: break-word !important; } 
+/* Code / pre blocks - prevent overflow */ 
+.relevanceai-widget pre, .relevanceai-chat pre { white-space: pre-wrap !important; word-break: break-word !important; max-width: 420px !important; overflow: auto !important; }
+ /* Force-close button visible */
+ .relevanceai-close, .relevanceai-chat__close, .r-ai-close, .close-btn, .chat-close { display: block !important; visibility: visible !important; opacity: 1 !important; pointer-events: auto !important; z-index: 2147483648 !important; } 
+
+
+
+  
+
+
+  
 </style>
 </head>
 <body>
@@ -654,5 +681,19 @@ function showToast(msg){
 </script>
 
 
+
+<script> (function(){ 
+// Insert style only if not already present
+ if(!document.getElementById('r-ai-style-inject')){ var style = document.createElement('style'); style.id = 'r-ai-style-inject'; style.textContent = ` 
+/* Re-insert same rules in case widget uses inline shadow DOM or different structure */ 
+.relevanceai-widget .message, .relevanceai-chat .message, .relevanceai-bubble .message, .r-ai-widget .message, .r-ai-message, .relevanceai-message, [data-relevanceai-share-id] .message, [data-relevanceai-share-id] .message-body { max-width: 420px !important; box-sizing: border-box !important; word-break: break-word !important; white-space: normal !important; padding: 8px 12px !important; font-size: 13px !important; line-height: 1.4 !important; }`; document.head.appendChild(style); } 
+// MutationObserver: ensure new message nodes get their inline styles adjusted if widget uses inline styling function enforceMessageStyles(root){ var sel = '.relevanceai-widget .message, .relevanceai-chat .message, .relevanceai-bubble .message, .r-ai-widget .message, .r-ai-message, .relevanceai-message, [data-relevanceai-share-id] .message, [data-relevanceai-share-id] .message-body'; var nodes = (root || document).querySelectorAll(sel); nodes.forEach(function(n){ n.style.maxWidth = '420px'; n.style.whiteSpace = 'normal'; n.style.wordBreak = 'break-word'; n.style.boxSizing = 'border-box'; if(!n.style.padding) n.style.padding = '8px 12px'; }); } 
+// Observe body for widget additions var mo = new MutationObserver(function(muts){ muts.forEach(function(mut){ mut.addedNodes.forEach(function(node){ if(node.nodeType !== 1) return; enforceMessageStyles(node); }); }); }); mo.observe(document.body, {childList:true, subtree:true}); // Try to apply immediately & after load enforceMessageStyles(document); window.addEventListener('load', function(){ enforceMessageStyles(document); setTimeout(function(){ enforceMessageStyles(document); }, 800); }); console.log('[RelevanceAI] HTML styling helper active — messages constrained and styled.'); })(); 
+</script>
+
+
+
+
+  
 </body>
 </html>
