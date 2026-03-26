@@ -112,133 +112,17 @@ footer strong{color:rgba(255,255,255,.85)}
 .toast.show{transform:translateY(0);opacity:1}
 @media(max-width:700px){.sgrid{grid-template-columns:1fr 1fr}.hbadges{display:none}}
 @media(max-width:480px){.sgrid{grid-template-columns:1fr}}
-  /*-----------------------------------------*/
-  :root {
-            --banking-primary: #2c5aa0;
-            --banking-secondary: #1e3d72;
-            --banking-accent: #f39c12;
-        }
-        
-        /* Position chat bubble on LEFT SIDE */
-        [data-relevanceai-chat-bubble] {
-            left: 20px !important;
-            right: auto !important;
-            bottom: 20px !important;
-            background: var(--banking-primary) !important;
-            border: 3px solid var(--banking-accent) !important;
-            box-shadow: 0 4px 20px rgba(44, 90, 160, 0.3) !important;
-            transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1) !important;
-        }
-        
-        [data-relevanceai-chat-bubble]:hover {
-            transform: scale(1.1) translateY(-2px) !important;
-            background: var(--banking-secondary) !important;
-            box-shadow: 0 8px 30px rgba(44, 90, 160, 0.4) !important;
-        }
-        
-        /* Position chat window on LEFT SIDE */
-        [data-relevanceai-chat-window] {
-            left: 20px !important;
-            right: auto !important;
-            bottom: 90px !important;
-            border-radius: 15px !important;
-            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.2) !important;
-            border: 1px solid #e0e0e0 !important;
-        }
-        
-        /* Customize chat header */
-        [data-relevanceai-chat-window] .header {
-            background: linear-gradient(135deg, var(--banking-primary) 0%, var(--banking-secondary) 100%) !important;
-            color: white !important;
-        }
-        
-        /* Add banking icon animation */
-        [data-relevanceai-chat-bubble]::before {
-            content: '🏦';
-            font-size: 24px;
-            animation: pulse 2s infinite;
-        }
-        
-        @keyframes pulse {
-            0% { transform: scale(1); }
-            50% { transform: scale(1.05); }
-            100% { transform: scale(1); }
-        }
-        
-        /* Mobile responsive */
-        @media (max-width: 768px) {
-            [data-relevanceai-chat-bubble] {
-                left: 15px !important;
-                bottom: 15px !important;
-                width: 50px !important;
-                height: 50px !important;
-            }
-            
-            [data-relevanceai-chat-window] {
-                left: 10px !important;
-                right: 10px !important;
-                bottom: 75px !important;
-                width: calc(100vw - 20px) !important;
-                height: calc(100vh - 100px) !important;
-            }
-        }
-        
-        /* Add notification badge */
-        [data-relevanceai-chat-bubble]::after {
-            content: '';
-            position: absolute;
-            top: -5px;
-            right: -5px;
-            width: 12px;
-            height: 12px;
-            background: #ff4757;
-            border-radius: 50%;
-            animation: notification-pulse 2s infinite;
-        }
-        
-        @keyframes notification-pulse {
-            0% { transform: scale(1); opacity: 1; }
-            50% { transform: scale(1.2); opacity: 0.7; }
-            100% { transform: scale(1); opacity: 1; }
-        }
-  /*-----------------------------------------*/
+ 
 </style>
 </head>
 <body>
-<!------------------------------------------>
-<header>
-        <h1>🏦 Banking Exam Preparation Hub</h1>
-        <p>Master SBI Clerk, IBPS Clerk & RRB Assistant Exams</p>
-    </header>
-    
-    <main>
-        <section>
-            <h2>Welcome to Your Banking Career Journey</h2>
-            <p>Get expert guidance from our AI Banking Exam Mentor available 24/7 on the left side of your screen!</p>
-            
-            <div style="background: #f8f9fa; padding: 20px; border-radius: 10px; margin: 20px 0;">
-                <h3>🎯 What Our AI Mentor Offers:</h3>
-                <ul>
-                    <li>📰 Daily Current Affairs Updates</li>
-                    <li>📝 Practice Questions with Solutions</li>
-                    <li>🎯 Mock Tests & Performance Analysis</li>
-                    <li>📚 Personalized Study Plans</li>
-                    <li>⚡ Shortcuts & Time-Saving Tricks</li>
-                    <li>❓ Instant Doubt Resolution</li>
-                </ul>
-                <p><strong>Click the banking icon on the left to start your preparation!</strong></p>
-            </div>
-        </section>
-    </main>
-    
-    <!-- Official Relevance AI Chat Bubble - Positioned Left -->
-    <script defer 
-            data-relevanceai-share-id="f1db6c/c6a455b9-fd72-4d82-b793-7260a41d13e3/218453ab-4426-4ab6-9ad7-7f8ae1154b34" 
-            src="https://app.relevanceai.com/embed/chat-bubble.js" 
-            data-share-styles="hide_tool_steps=false&hide_file_uploads=false&hide_conversation_list=false&bubble_style=agent&primary_color=%232c5aa0&bubble_icon=🏦&input_placeholder_text=Ask+me+about+banking+exams...&hide_logo=false&hide_description=false">
-    </script>
+<script defer 
+        data-relevanceai-share-id="f1db6c/c6a455b9-fd72-4d82-b793-7260a41d13e3/218453ab-4426-4ab6-9ad7-7f8ae1154b34" 
+        src="https://app.relevanceai.com/embed/chat-bubble.js" 
+        data-share-styles="hide_tool_steps=false&hide_file_uploads=false&hide_conversation_list=false&bubble_style=agent&primary_color=%23667eea&bubble_icon=🏦&input_placeholder_text=Ask+about+banking+exams...&hide_logo=false&hide_description=false&position=left">
+</script>
 
-  <!------------------------------------------->
+  
 <script>
   window.addEventListener('mouseover', initLandbot, { once: true });
   window.addEventListener('touchstart', initLandbot, { once: true });
