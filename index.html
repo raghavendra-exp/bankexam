@@ -690,7 +690,7 @@ function showToast(msg){
 // MutationObserver: ensure new message nodes get their inline styles adjusted if widget uses inline styling function enforceMessageStyles(root){ var sel = '.relevanceai-widget .message, .relevanceai-chat .message, .relevanceai-bubble .message, .r-ai-widget .message, .r-ai-message, .relevanceai-message, [data-relevanceai-share-id] .message, [data-relevanceai-share-id] .message-body'; var nodes = (root || document).querySelectorAll(sel); nodes.forEach(function(n){ n.style.maxWidth = '420px'; n.style.whiteSpace = 'normal'; n.style.wordBreak = 'break-word'; n.style.boxSizing = 'border-box'; if(!n.style.padding) n.style.padding = '8px 12px'; }); } 
 // Observe body for widget additions var mo = new MutationObserver(function(muts){ muts.forEach(function(mut){ mut.addedNodes.forEach(function(node){ if(node.nodeType !== 1) return; enforceMessageStyles(node); }); }); }); mo.observe(document.body, {childList:true, subtree:true}); // Try to apply immediately & after load enforceMessageStyles(document); window.addEventListener('load', function(){ enforceMessageStyles(document); setTimeout(function(){ enforceMessageStyles(document); }, 800); }); console.log('[RelevanceAI] HTML styling helper active — messages constrained and styled.'); })(); 
 </script>
-
+<script>
 Ready-to-drop snippet (function(){ if(document.getElementById('r-ai-quick-menu')) return; // Menu config: update messages to your preferred phrasing var MENU_OPTIONS = [ { label: '🧩 Reasoning', message: 'Give me 5 reasoning questions (mix of puzzles & seating, moderate).' }, { label: '➗ Quantitative Aptitude', message: 'Give me 5 quant questions (arithmetic & DI, moderate).' }, { label: '📝 English Language', message: 'Give me 5 English questions (RC / error detection / cloze).' }, { label: '🌐 General Awareness', message: 'Give me 5 current affairs + banking awareness MCQs.' }, { label: '💻 Computer Knowledge', message: 'Give me 5 computer knowledge MCQs (basic + banking software).' }, { label: '📚 Personalized Study Plan', message: 'Create a personalized 60-day study plan for SBI Clerk Prelims.' }, { label: '🧪 Mock Test', message: 'Start a sectional mock test: Reasoning, 15 questions, 12 minutes.' }, { label: '📰 Current Affairs', message: 'Show me today\'s banking & general current affairs (top 10).' }, { label: '⚡ Shortcuts & Tricks', message: 'Share top numeric shortcuts for fast calculation in Quant.' }, { label: '❓ Doubt Resolver', message: 'I have a doubt: [paste question here] — please explain step-by-step.' } ];
 
 // Build floating menu var menu = document.createElement('div'); menu.id = 'r-ai-quick-menu'; menu.innerHTML = '<button id="r-ai-menu-toggle" aria-expanded="true">☰ Bank Mentor</button><div id="r-ai-menu-list"></div><div style="height:8px"></div><button id="r-ai-save-pdf" title="Save chat as PDF">💾 Save Chat as PDF</button>'; document.body.appendChild(menu);
@@ -729,7 +729,7 @@ function escapeHtml(s){ return s.replace && s.replace(/&/g,'&').replace(/</g,'<'
 
 console.log('[Banking Mentor] Quick menu + Save-as-PDF injected.'); })();
 
-
+</script>
   
 </body>
 </html>
